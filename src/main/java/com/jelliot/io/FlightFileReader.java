@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.jetbrains.annotations.NotNull;
 
 public class FlightFileReader {
 
@@ -17,7 +18,7 @@ public class FlightFileReader {
     this.path = path;
   }
 
-  public Collection<Flight> readAll() throws IOException {
+  public Collection<@NotNull Flight> readAll() throws IOException {
     try (Stream<String> stream = Files.lines(path)) {
       return
       // remove any duplicate flights

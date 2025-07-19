@@ -1,8 +1,10 @@
 package com.jelliot.io.dao;
 
+import org.jetbrains.annotations.NotNull;
+
 public class Flight {
-  private final String airportFrom;
-  private final String airportTo;
+  private final @NotNull String airportFrom;
+  private final @NotNull String airportTo;
   private final int miles;
 
   public Flight(String airportFrom, String airportTo, int miles) {
@@ -11,11 +13,11 @@ public class Flight {
     this.miles = miles;
   }
 
-  public String getAirportFrom() {
+  public @NotNull String getAirportFrom() {
     return airportFrom;
   }
 
-  public String getAirportTo() {
+  public @NotNull String getAirportTo() {
     return airportTo;
   }
 
@@ -25,15 +27,6 @@ public class Flight {
 
   @Override
   public String toString() {
-    return "Flight{"
-        + "airportFrom='"
-        + airportFrom
-        + '\''
-        + ", airportTo='"
-        + airportTo
-        + '\''
-        + ", miles="
-        + miles
-        + '}';
+    return airportFrom + airportTo + miles;
   }
 }

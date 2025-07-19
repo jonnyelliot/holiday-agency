@@ -1,27 +1,16 @@
 package com.jelliot;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+public interface Costs {
 
-public class Costs {
+  int getFlightMile();
 
-  private static final Logger log = LoggerFactory.getLogger(Costs.class);
+  int getTaxiMile();
 
-  public static final int COST_FLIGHT_MILE = getCost("COST_FLIGHT_MILE", 10);
-  public static final int COST_TAXI_MILE = getCost("COST_TAXI_MILE", 40);
-  public static final int COST_CAR_MILE = getCost("COST_CAR_MILE", 20);
-  public static final int COST_CAR_PARKING = getCost("COST_CAR_PARKING", 300);
+  int getCarMile();
 
-  private static int getCost(String env, int defaultValue) {
-    String envVar = System.getenv(env);
-    if (envVar == null) {
-      return defaultValue;
-    } else {
-      try {
-        return Integer.parseInt(envVar);
-      } catch (NumberFormatException e) {
-        throw new RuntimeException("Invalid cost value for " + env, e);
-      }
-    }
-  }
+  int getCarParking();
+
+  int getMaxPassengersPerCar();
+
+  int getMaxPassengersPerTaxi();
 }
