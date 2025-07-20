@@ -28,6 +28,9 @@ public class FlightRouteCalculator {
                 .findFirst()
                 .orElse(-1);
 
+    // we don't have a heuristic to hint how close we are. In reality, we could use the straight
+    // line distance from the current node (airport) to the destination, but we don't have this data
+    // so instead use a constant value, effectively removing any heuristic
     Scorer<AirportGraphNode> targetScorer = (from, to) -> 1;
 
     routeFinder = new RouteFinder<>(createGraph(flights), nextNodeScorer, targetScorer);
