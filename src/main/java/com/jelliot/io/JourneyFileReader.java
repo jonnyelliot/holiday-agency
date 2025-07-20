@@ -3,9 +3,13 @@ package com.jelliot.io;
 import com.jelliot.exception.FileFormatException;
 import com.jelliot.io.dao.Journey;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.text.NumberFormat;
 import java.util.Collection;
+import java.util.Locale;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 public class JourneyFileReader {
@@ -17,6 +21,7 @@ public class JourneyFileReader {
   }
 
   public Collection<Journey> readAll() throws IOException {
+
     try (Stream<String> s = Files.lines(path)) {
       return s.map(this::lineToFlight).toList();
     }
@@ -27,13 +32,14 @@ public class JourneyFileReader {
     if (values.length != 4) {
       throw new FileFormatException(path);
     }
+    String id = values[0];
     int passengers = getPassengers(values);
     String homeToAirport = removeSingleQuotes(values[2]);
     String startingAirport = getStartingAirport(homeToAirport);
     int homeToStartingAirportMiles = getHomeToStartingAirportMiles(homeToAirport);
     String destinationAirport = getDestinationAirport(values);
 
-    return new Journey(passengers, startingAirport, destinationAirport, homeToStartingAirportMiles);
+    return new Journey(id, passengers, startingAirport, destinationAirport, homeToStartingAirportMiles);
   }
 
   private String getStartingAirport(String homeToAirport) {
@@ -63,4 +69,7 @@ public class JourneyFileReader {
   private String removeSingleQuotes(String s) {
     return s.replaceAll("'", "");
   }
+
+
+
 }

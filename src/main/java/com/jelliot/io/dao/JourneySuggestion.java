@@ -4,6 +4,7 @@ import java.util.List;
 
 public class JourneySuggestion {
 
+  private final String id;
   private final String vehicle;
   private final long vehicleReturnCost;
   private final List<Flight> outboundRoute;
@@ -13,6 +14,7 @@ public class JourneySuggestion {
   private final long totalCost;
 
   public JourneySuggestion(
+      String id,
       String vehicle,
       long vehicleReturnCost,
       List<Flight> outboundRoute,
@@ -20,6 +22,7 @@ public class JourneySuggestion {
       List<Flight> inboundRoute,
       long inboundCost,
       long totalCost) {
+    this.id = id;
     this.vehicle = vehicle;
     this.vehicleReturnCost = vehicleReturnCost;
     this.outboundRoute = outboundRoute;
@@ -57,9 +60,16 @@ public class JourneySuggestion {
     return totalCost;
   }
 
+  public String getId() {
+    return id;
+  }
+
   @Override
   public String toString() {
     return "JourneySuggestion{"
+        + "id='"
+        + id
+        + '\''
         + "vehicle='"
         + vehicle
         + '\''

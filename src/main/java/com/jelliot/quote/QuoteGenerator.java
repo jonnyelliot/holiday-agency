@@ -51,6 +51,7 @@ public class QuoteGenerator {
             : vehicleReturnCost + outBoundCost + inBoundCost;
 
     return new JourneySuggestion(
+        journey.getId(),
         vehicle,
         vehicleReturnCost,
         outBoundRoute,

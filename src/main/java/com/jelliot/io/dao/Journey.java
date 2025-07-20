@@ -1,16 +1,20 @@
 package com.jelliot.io.dao;
 
 public class Journey {
+
+  private final String id;
   private final int passengers;
   private final String startingAirport;
   private final String destinationAirport;
   private final int homeToStartingAirportMiles;
 
   public Journey(
+      String id,
       int passengers,
       String startingAirport,
       String destinationAirport,
       int homeToStartingAirportMiles) {
+    this.id = id;
     this.passengers = passengers;
     this.startingAirport = startingAirport;
     this.destinationAirport = destinationAirport;
@@ -31,5 +35,28 @@ public class Journey {
 
   public int getHomeToStartingAirportMiles() {
     return homeToStartingAirportMiles;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  @Override
+  public String toString() {
+    return "Journey{"
+        + "id='"
+        + id
+        + '\''
+        + "passengers="
+        + passengers
+        + ", startingAirport='"
+        + startingAirport
+        + '\''
+        + ", destinationAirport='"
+        + destinationAirport
+        + '\''
+        + ", homeToStartingAirportMiles="
+        + homeToStartingAirportMiles
+        + '}';
   }
 }
