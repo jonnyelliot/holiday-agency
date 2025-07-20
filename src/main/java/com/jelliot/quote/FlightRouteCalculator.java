@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/** Calculates the optimal flight route to get from one place to another */
 public class FlightRouteCalculator {
 
   private final RouteFinder<AirportGraphNode> routeFinder;

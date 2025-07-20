@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.jetbrains.annotations.NotNull;
 
+/** Writes priced-up and routed journeys to file */
 public class JourneySuggestionWriter {
   public static final String HEADER =
       "#,vehicle,vehicle return cost,outbound rate,outbound cost,inbound route,inbound cost,total cost";

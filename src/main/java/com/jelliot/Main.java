@@ -22,9 +22,9 @@ import org.slf4j.LoggerFactory;
 
 public class Main {
   private static final Logger log = LoggerFactory.getLogger(Main.class);
-  private static final Path FLIGHT_INPUT_PATH = Path.of( "flights.csv");
-  private static final Path JOURNEY_INPUT_PATH = Path.of( "journeys.csv");
-  private static final Path QUOTE_OUTPUT_PATH = Path.of( "quotes.csv");
+  private static final Path FLIGHT_INPUT_PATH = Path.of("flights.csv");
+  private static final Path JOURNEY_INPUT_PATH = Path.of("journeys.csv");
+  private static final Path QUOTE_OUTPUT_PATH = Path.of("quotes.csv");
 
   public static void main(String[] args) {
     Map<String, Collection<Flight>> flights = loadFlights();

@@ -1,5 +1,6 @@
 package com.jelliot.io.dao;
 
+/** Representation of the outline of a journey that was provided as input to the application */
 public class Journey {
 
   private final String id;

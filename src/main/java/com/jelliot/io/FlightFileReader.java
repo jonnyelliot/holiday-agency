@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.jetbrains.annotations.NotNull;
 
+/** Reads flights from file */
 public class FlightFileReader {
 
   private final Path path;

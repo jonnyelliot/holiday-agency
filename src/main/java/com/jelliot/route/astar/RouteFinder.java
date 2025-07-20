@@ -3,6 +3,11 @@ package com.jelliot.route.astar;
 import java.util.*;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * Implementation of A* (pronounced "A-star"), a graph traversal and pathfinding algorithm. Given a
+ * weighted graph, a source node and a goal node, the algorithm finds the shortest path (with
+ * respect to the given weights) from source to goal.
+ */
 public class RouteFinder<T extends GraphNode> {
   private final Graph<T> graph;
   private final Scorer<T> nextNodeScorer;

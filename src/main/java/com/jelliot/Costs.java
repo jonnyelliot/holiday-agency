@@ -1,5 +1,6 @@
 package com.jelliot;
 
+/** Provider of cost data. All values are in round-number pence */
 public interface Costs {
 
   int getFlightMile();

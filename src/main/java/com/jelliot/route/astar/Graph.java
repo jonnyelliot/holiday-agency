@@ -1,9 +1,15 @@
 package com.jelliot.route.astar;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * A* Graph
+ *
+ * @param <T> graph node implementation
+ */
 public class Graph<T extends GraphNode> {
   private final Set<T> nodes;
   private final Map<String, Set<String>> connections;
@@ -21,6 +27,10 @@ public class Graph<T extends GraphNode> {
   }
 
   public Set<T> getConnections(T node) {
-    return connections.get(node.getId()).stream().map(this::getNode).collect(Collectors.toSet());
+    if (connections.containsKey(node.getId())) {
+      return connections.get(node.getId()).stream().map(this::getNode).collect(Collectors.toSet());
+    } else {
+      return Collections.emptySet();
+    }
   }
 }

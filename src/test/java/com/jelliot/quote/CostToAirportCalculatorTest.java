@@ -52,6 +52,6 @@ class CostToAirportCalculatorTest {
   }
 
   private Journey getJourney(int passengers, int milesApart) {
-    return new Journey(passengers, "A", "B", milesApart);
+    return new Journey("1", passengers, "A", "B", milesApart);
   }
 }

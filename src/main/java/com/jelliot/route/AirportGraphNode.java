@@ -3,6 +3,7 @@ package com.jelliot.route;
 import com.jelliot.route.astar.GraphNode;
 import java.util.Objects;
 
+/** A* Graph node implementation that represents a particular airport */
 public class AirportGraphNode implements GraphNode {
   private final String id;
 

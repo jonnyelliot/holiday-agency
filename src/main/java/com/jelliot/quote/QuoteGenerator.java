@@ -6,6 +6,7 @@ import com.jelliot.io.dao.Journey;
 import com.jelliot.io.dao.JourneySuggestion;
 import java.util.List;
 
+/** Given a journey outline, generates the lowest cost quote; a priced-up and routed journey */
 public class QuoteGenerator {
 
   public static final String TAXI = "Taxi";

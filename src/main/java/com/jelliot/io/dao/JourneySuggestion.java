@@ -13,6 +13,7 @@ public class JourneySuggestion {
   private final long inboundCost;
   private final long totalCost;
 
+  /** Representation of a priced-up and routed journey, intended to be the application's output */
   public JourneySuggestion(
       String id,
       String vehicle,

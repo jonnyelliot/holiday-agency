@@ -1,5 +1,6 @@
 package com.jelliot.route.astar;
 
+/** Representation of an in-progress node used during A* search */
 class RouteNode<T extends GraphNode> implements Comparable<RouteNode> {
   private final T current;
   private T previous;
@@ -31,20 +32,20 @@ class RouteNode<T extends GraphNode> implements Comparable<RouteNode> {
     return previous;
   }
 
-  public double getRouteScore() {
-    return routeScore;
-  }
-
-  public double getEstimatedScore() {
-    return estimatedScore;
-  }
-
   public void setPrevious(T previous) {
     this.previous = previous;
   }
 
+  public double getRouteScore() {
+    return routeScore;
+  }
+
   public void setRouteScore(double routeScore) {
     this.routeScore = routeScore;
+  }
+
+  public double getEstimatedScore() {
+    return estimatedScore;
   }
 
   public void setEstimatedScore(double estimatedScore) {
