@@ -1,10 +1,11 @@
 package com.jelliot.quote;
 
-import com.jelliot.Costs;
 import com.jelliot.io.dao.Flight;
 import com.jelliot.io.dao.Journey;
 import com.jelliot.io.dao.JourneySuggestion;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /** Given a journey outline, generates the lowest cost quote; a priced-up and routed journey */
 public class QuoteGenerator {
@@ -24,7 +25,8 @@ public class QuoteGenerator {
     this.costs = costs;
   }
 
-  public JourneySuggestion getLowestCostJourney(Journey journey) {
+  public JourneySuggestion getLowestCostJourney(
+      Journey journey, Map<String, Collection<Flight>> flights) {
     int carReturnCost = costToAirportCalculator.getCarReturnCost(journey);
     int taxiReturnCost = costToAirportCalculator.getTaxiReturnCost(journey);
     String vehicle;
@@ -39,10 +41,10 @@ public class QuoteGenerator {
     }
     List<Flight> outBoundRoute =
         flightRouteCalculator.getRoute(
-            journey.getStartingAirport(), journey.getDestinationAirport());
+            journey.getStartingAirport(), journey.getDestinationAirport(), flights);
     List<Flight> inBoundRoute =
         flightRouteCalculator.getRoute(
-            journey.getDestinationAirport(), journey.getStartingAirport());
+            journey.getDestinationAirport(), journey.getStartingAirport(), flights);
 
     int outBoundCost = getCostOfFlights(outBoundRoute, journey.getPassengers());
     int inBoundCost = getCostOfFlights(inBoundRoute, journey.getPassengers());

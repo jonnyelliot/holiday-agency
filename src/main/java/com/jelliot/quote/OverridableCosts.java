@@ -1,7 +1,5 @@
 package com.jelliot.quote;
 
-import com.jelliot.Costs;
-
 /**
  * Implementation of Costs that has default cost values that can be overridden by environment
  * variables. All values are in round-number pence

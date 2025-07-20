@@ -13,27 +13,27 @@ import org.jetbrains.annotations.Nullable;
 /** Calculates the optimal flight route to get from one place to another */
 public class FlightRouteCalculator {
 
-  private final RouteFinder<AirportGraphNode> routeFinder;
-  private final Map<String, Collection<Flight>> flights;
+  // we don't have a heuristic to hint how close we are. In reality, we could use the straight
+  // line distance from the current node (airport) to the destination, but we don't have this data
+  // so instead use a constant value, effectively removing any heuristic
+  private static final Scorer<AirportGraphNode> TARGET_SCORER = (from, to) -> 1;
 
-  public FlightRouteCalculator(Map<String, Collection<Flight>> flights) {
-    this.flights = flights;
+  public List<Flight> getRoute(
+      String startingAirport, String destinationAirport, Map<String, Collection<Flight>> flights) {
+    RouteFinder<AirportGraphNode> routeFinder =
+        new RouteFinder<>(createGraph(flights), createScorer(flights), TARGET_SCORER);
 
-    Scorer<AirportGraphNode> nextNodeScorer =
-        (from, to) ->
-            flights.get(from.getId()).stream()
-                .filter(n -> n.getAirportTo().equals(to.getId()))
-                .map(Flight::getMiles)
-                .sorted()
-                .findFirst()
-                .orElse(-1);
+    @Nullable
+    List<AirportGraphNode> routeNodes =
+        routeFinder.findRoute(
+            new AirportGraphNode(startingAirport), new AirportGraphNode(destinationAirport));
 
-    // we don't have a heuristic to hint how close we are. In reality, we could use the straight
-    // line distance from the current node (airport) to the destination, but we don't have this data
-    // so instead use a constant value, effectively removing any heuristic
-    Scorer<AirportGraphNode> targetScorer = (from, to) -> 1;
+    if (routeNodes == null) {
+      // no route
+      return Collections.emptyList();
+    }
 
-    routeFinder = new RouteFinder<>(createGraph(flights), nextNodeScorer, targetScorer);
+    return getFlightsFromNodes(routeNodes, flights);
   }
 
   private Graph<AirportGraphNode> createGraph(Map<String, Collection<Flight>> flights) {
@@ -54,23 +54,9 @@ public class FlightRouteCalculator {
     return new Graph<>(nodes, connections);
   }
 
-  public List<Flight> getRoute(String startingAirport, String destinationAirport) {
-
-    @Nullable
-    List<AirportGraphNode> routeNodes =
-        routeFinder.findRoute(
-            new AirportGraphNode(startingAirport), new AirportGraphNode(destinationAirport));
-
-    if (routeNodes == null) {
-      // no route
-      return Collections.emptyList();
-    }
-
-    return getFlightsFromNodes(routeNodes);
-  }
-
   @NotNull
-  private List<Flight> getFlightsFromNodes(@NotNull List<AirportGraphNode> routeNodes) {
+  private List<Flight> getFlightsFromNodes(
+      @NotNull List<AirportGraphNode> routeNodes, Map<String, Collection<Flight>> flights) {
     List<Flight> route = new ArrayList<>();
 
     for (int i = 1; i < routeNodes.size(); i++) {
@@ -85,5 +71,16 @@ public class FlightRouteCalculator {
     }
 
     return route;
+  }
+
+  @NotNull
+  private Scorer<AirportGraphNode> createScorer(Map<String, Collection<Flight>> flights) {
+    return (from, to) ->
+        flights.get(from.getId()).stream()
+            .filter(n -> n.getAirportTo().equals(to.getId()))
+            .map(Flight::getMiles)
+            .sorted()
+            .findFirst()
+            .orElse(-1);
   }
 }
