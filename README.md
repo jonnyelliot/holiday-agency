@@ -24,15 +24,17 @@ See `.github/workflows/gradle.yml` for the CI script in question.
 
 ## Design
 
-The application is written using plain Java. For the sake of time constraints, I did not use Spring - I could have made `HolidayAgencyApplication` implement the `org.springframework.boot.CommandLineRunner` interface.
+The application is written using plain Java. For the sake of time constraints, I did not use Spring - I could have made `HolidayAgencyApplication` implement the `org.springframework.boot.CommandLineRunner` interface, for example.
 
-Still, the application is structured in a Spring-like way, with use of constructor-based dependency injection. See, for example, the four lines of the `HolidayAgencyApplication`'s constructor for the "hand crafting" that Spring's CDI would have done for us. 
+Still, the application is structured in a Spring-like way, with use of constructor-based dependency injection. See, for example, the four lines of the `HolidayAgencyApplication`'s constructor for the "hand crafting" that Spring's CDI would have done for us.
 
-I used A* (pronounced "A-star"), a graph traversal and pathfinding algorithm. Given a weighted graph, a source node and a goal node, the algorithm finds the shortest path (with respect to the given weights) from source to goal. Is guaranteed to find the shortest path.  
+`QuoteGenerator` is a class that delegates most of its behaviour to its dependencies, but not all. I used [Mockito](https://site.mockito.org/) to unit test `QuoteGenerator`, mocking its dependencies, to test the behaviour of the class itself.
+
+I used A* (pronounced "A-star"), a graph traversal and pathfinding algorithm. Given a weighted graph, a source node and a goal node, the algorithm finds the shortest path (with respect to the given weights) from source to goal. It is guaranteed to find the shortest path.  
 
 While A* is sufficient for the given inputs, real-world journey planners use more refined algorithms that preprocess the graph of connections between nodes (airports).
 
-A* uses a scorer to estimate the distance from the current node to the end node, it is used as a heuristic to find the correct result more quickly. If the location of the nodes (airports) was known, the straight line distance would have made a good heuristic. 
+A* can use a scorer to estimate the distance from the current node to the end node as a heuristic to find the correct result more quickly. If the location of the nodes (airports) was known, the straight line distance would have made a good heuristic.
 
 ## Building
 
@@ -40,3 +42,6 @@ To build the application: `./gradlew build`
 
 To build a jar with its dependencies: `./gradlew shadowJar`. To run this jar, run: `java -jar ./build/libs/holiday-agency-*-all.jar`
 
+## Attribution
+
+Implementation of A* (everything in `com.jelliot.route.astar`) is taken from [Implementing A* Pathfinding in Java](https://www.baeldung.com/java-a-star-pathfinding) with light modifications. 
